@@ -1,18 +1,21 @@
-✈️ AI Travel Planner (Agentic Chat using AutoGen & Groq)
-This project is a multi-agent AI travel planner built using AutoGen, Groq LLM API, and Streamlit. It simulates a collaborative team of AI travel agents (Destination Expert, Itinerary Creator, Budget Analyst, and Report Writer) to generate personalized travel plans.
+# ✈️ AI Travel Planner (Agentic Chat using AutoGen & Groq)
 
-🚀 Features
-✅ Multi-agent conversation flow using AutoGen GroupChat
+This project is a **multi-agent AI travel planner** built using **AutoGen**, **Groq LLM API**, and **Streamlit**.  
+It simulates a collaborative team of AI travel agents (**Destination Expert**, **Itinerary Creator**, **Budget Analyst**, and **Report Writer**) to generate **personalized travel plans**.
 
-✅ Real-time AI-powered travel planning via Streamlit
+---
 
-✅ Budget, itinerary, destination insights in a single output
+## 🚀 Features
 
-✅ Groq Llama-3-8b-8192 model integration
+- ✅ Multi-agent conversation flow using **AutoGen GroupChat**
+- ✅ Real-time AI-powered travel planning via **Streamlit**
+- ✅ Budget, itinerary, and destination insights in a single output
+- ✅ **Groq Llama-3-8b-8192** model integration
+- ✅ Safe input handling (only travel-related queries allowed)
 
-✅ Safe input handling (only travel-related queries allowed)
+---
 
-📂 Project Structure
+## 📂 Project Structure
 
 📁 travel_plannr/
 │
@@ -22,14 +25,17 @@ This project is a multi-agent AI travel planner built using AutoGen, Groq LLM AP
 ├── requirements.txt
 └── app.py # Main Streamlit application
 
-⚙️ Setup Instructions
-1. Clone the Repository
 
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+```bash
 git clone https://github.com/harshitg433/travel_plannr.git
-cd ai-travel-planner
+cd travel_plannr
 
-2. Install Virtual Environment (Optional but Recommended)
-
+2. Create Virtual Environment (Optional but Recommended)
 python3 -m venv .venv
 source .venv/bin/activate
 
@@ -38,16 +44,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 4. Configure API Key(Using .env)
-
 Create a .env file in your project root:
 
 GROQ_API_KEY=your_groq_api_key_here
 
-
 ▶️ Running the Application
 
 streamlit run app.py
-Open browser at: http://localhost:8501
+
+Then open your browser: http://localhost:8501
 
 📝 Usage
 Enter your travel preferences (destination, duration, budget, etc.).
