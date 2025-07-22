@@ -7,13 +7,13 @@ from autogen import ConversableAgent, GroupChat, GroupChatManager
 load_dotenv()
 
 # --- Configuration ---
-# Access GROQ_API_KEY from Streamlit secrets for deployment
+# Access GROQ_API_KEY from Streamlit secrets or .env
 try:
     groq_api_key = st.secrets["GROQ_API_KEY"]
 except (st.errors.StreamlitSecretNotFoundError, KeyError):
     groq_api_key = os.getenv("GROQ_API_KEY")
     if not groq_api_key:
-        st.error("GROQ_API_KEY not found. Please set it in Streamlit secrets for deployment, or in your .env file for local development.")
+        st.error("GROQ_API_KEY not found. Please set it in Streamlit secrets for deployment or in your .env file for local development.")
         st.stop()
 
 llm_config = {
@@ -87,25 +87,24 @@ travel_planner_manager = GroupChatManager(
     llm_config=llm_config,
 )
 
-# --- Function to Validate Travel-Related Input ---
-def is_travel_related(request):
-    """Check if the user request is related to travel."""
+# --- Function to Check if Query is Travel-Related ---
+def is_travel_related(query):
     travel_keywords = [
-        "trip", "travel", "destination", "itinerary", "vacation", "holiday", 
-        "tour", "beach", "city", "country", "flight", "hotel", "resort", 
-        "culture", "adventure", "sightseeing", "budget", "plan", "visit"
+        "trip", "travel", "destination", "itinerary", "vacation", "holiday", "tour",
+        "beach", "culture", "adventure", "city", "country", "flight", "hotel",
+        "accommodation", "budget", "plan", "visit", "explore", "sightseeing"
     ]
-    request_lower = request.lower()
-    return any(keyword in request_lower for keyword in travel_keywords)
+    query_lower = query.lower()
+    return any(keyword in query_lower for keyword in travel_keywords)
 
 # --- Streamlit App ---
 st.set_page_config(page_title="AI Travel Planner", page_icon="✈️", layout="wide")
 
 def main():
     st.title("✈️ AI Travel Planner")
-    st.markdown("Plan your dream trip! Enter your travel preferences, and we'll create a personalized travel plan. Note: This app is for travel planning only.")
+    st.markdown("Plan your dream trip! Enter your travel preferences, and we'll create a personalized travel plan.")
 
-    # Initialize session state for chat result and history
+    # Initialize session state
     if "chat_result" not in st.session_state:
         st.session_state.chat_result = None
         st.session_state.history = []
@@ -119,14 +118,14 @@ def main():
         submit_button = st.form_submit_button(label="Generate Travel Plan")
 
     if submit_button and user_request:
-        # Validate if the request is travel-related
+        # Validate if the query is travel-related
         if not is_travel_related(user_request):
-            st.error("This is a travel agent, sorry for your inconvenience. Please provide a travel-related request.")
+            st.error("This is a traveling agent, sorry for your inconvenience. Please provide a travel-related request.")
             return
 
         with st.spinner("Generating your travel plan..."):
             try:
-                # Clear previous result before initiating a new chat
+                # Clear previous result
                 st.session_state.chat_result = None
                 st.session_state.history = []
 
@@ -137,7 +136,7 @@ def main():
                     clear_history=True,
                 )
 
-                # Store result and history in session state
+                # Store result and history
                 st.session_state.chat_result = chat_result
                 st.session_state.history = chat_result.chat_history
 
