@@ -28,22 +28,21 @@ It simulates a collaborative team of AI travel agents (**Destination Expert**, *
 
 ---
 
-## ⚙️ Setup Instructions
+⚙️ Setup Instructions
 
-### 1. Clone the Repository
-```bash
+1. Clone the Repository
 git clone https://github.com/harshitg433/travel_plannr.git
 cd travel_plannr
 
-### 2. Create Virtual Environment (Optional but Recommended)
+2. Create Virtual Environment (Optional but Recommended)
 python3 -m venv .venv
 source .venv/bin/activate
 
-### 3. Install Required Packages
+3. Install Required Packages
 
 pip install -r requirements.txt
 
-### 4. Configure API Key(Using .env)
+4. Configure API Key(Using .env)
 Create a .env file in your project root:
 
 GROQ_API_KEY=your_groq_api_key_here
