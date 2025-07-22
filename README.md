@@ -21,6 +21,7 @@ This project is a multi-agent AI travel planner built using AutoGen, Groq LLM AP
 ├── README.md
 ├── requirements.txt
 └── app.py                  # Main Streamlit application
+
 ⚙️ Setup Instructions
 1. Clone the Repository
 
@@ -93,15 +94,8 @@ Pull requests are welcome! Please open issues for bugs or feature suggestions.
 
 🖼️ Project banner image
 
-![AI Travel Planner Banner for accepting query](output/Screenshot from 2025-07-22 23-37-33.png)
+![Description](output/Screenshot from 2025-07-22 23-37-33.png)
 
-![AI Travel Planner Banner for rejecting query](output/Screenshot from 2025-07-22 23-37-51.png)
-
-
+![Description](output/Screenshot from 2025-07-22 23-37-51.png)
 
 
-
-
-
-
-Ask ChatGPT
