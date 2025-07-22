@@ -1,18 +1,18 @@
 import os
 import streamlit as st
-# from dotenv import load_dotenv # REMOVE THIS LINE for Streamlit Community Cloud
+from dotenv import load_dotenv # UNCOMMENTED THIS LINE for local development
 from autogen import ConversableAgent, GroupChat, GroupChatManager
 
 # For Streamlit Community Cloud, secrets are accessed via st.secrets
 # For local development, you might still use dotenv, but for deployment, st.secrets is preferred.
-# load_dotenv() # REMOVE THIS LINE for Streamlit Community Cloud
+load_dotenv() # UNCOMMENTED THIS LINE for local development
 
 # --- Configuration ---
 # Access GROQ_API_KEY from Streamlit secrets for deployment
 try:
     # This will work on Streamlit Community Cloud after you set the secret
     groq_api_key = st.secrets["GROQ_API_KEY"]
-except KeyError:
+except (st.errors.StreamlitSecretNotFoundError, KeyError): # MODIFIED: Catch StreamlitSecretNotFoundError
     # Fallback for local development if you prefer .env, or for testing
     # If deploying, ensure this block is not reached by setting st.secrets
     groq_api_key = os.getenv("GROQ_API_KEY")
