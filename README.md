@@ -16,11 +16,11 @@ This project is a multi-agent AI travel planner built using AutoGen, Groq LLM AP
 
 📁 travel_plannr/
 │
-├── .env                    # Local environment variables (GROQ_API_KEY)
+├── .env # Local environment variables (GROQ_API_KEY)
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
-└── app.py                  # Main Streamlit application
+└── app.py # Main Streamlit application
 
 ⚙️ Setup Instructions
 1. Clone the Repository
