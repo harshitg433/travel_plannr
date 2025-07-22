@@ -1,24 +1,20 @@
 import os
 import streamlit as st
-from dotenv import load_dotenv # UNCOMMENTED THIS LINE for local development
+from dotenv import load_dotenv
 from autogen import ConversableAgent, GroupChat, GroupChatManager
 
-# For Streamlit Community Cloud, secrets are accessed via st.secrets
-# For local development, you might still use dotenv, but for deployment, st.secrets is preferred.
-load_dotenv() # UNCOMMENTED THIS LINE for local development
+# Load environment variables for local development
+load_dotenv()
 
 # --- Configuration ---
 # Access GROQ_API_KEY from Streamlit secrets for deployment
 try:
-    # This will work on Streamlit Community Cloud after you set the secret
     groq_api_key = st.secrets["GROQ_API_KEY"]
-except (st.errors.StreamlitSecretNotFoundError, KeyError): # MODIFIED: Catch StreamlitSecretNotFoundError
-    # Fallback for local development if you prefer .env, or for testing
-    # If deploying, ensure this block is not reached by setting st.secrets
+except (st.errors.StreamlitSecretNotFoundError, KeyError):
     groq_api_key = os.getenv("GROQ_API_KEY")
     if not groq_api_key:
         st.error("GROQ_API_KEY not found. Please set it in Streamlit secrets for deployment, or in your .env file for local development.")
-        st.stop() # Stop the app if API key is missing
+        st.stop()
 
 llm_config = {
     "config_list": [
@@ -26,7 +22,7 @@ llm_config = {
             "model": "llama3-8b-8192",
             "api_key": groq_api_key,
             "base_url": "https://api.groq.com/openai/v1",
-            "price": [0.2, 0.2], # This 'price' key is typically for internal tracking/simulation, not directly used by the API call
+            "price": [0.2, 0.2],
         }
     ]
 }
@@ -91,12 +87,23 @@ travel_planner_manager = GroupChatManager(
     llm_config=llm_config,
 )
 
+# --- Function to Validate Travel-Related Input ---
+def is_travel_related(request):
+    """Check if the user request is related to travel."""
+    travel_keywords = [
+        "trip", "travel", "destination", "itinerary", "vacation", "holiday", 
+        "tour", "beach", "city", "country", "flight", "hotel", "resort", 
+        "culture", "adventure", "sightseeing", "budget", "plan", "visit"
+    ]
+    request_lower = request.lower()
+    return any(keyword in request_lower for keyword in travel_keywords)
+
 # --- Streamlit App ---
 st.set_page_config(page_title="AI Travel Planner", page_icon="✈️", layout="wide")
 
 def main():
     st.title("✈️ AI Travel Planner")
-    st.markdown("Plan your dream trip! Enter your preferences, and we'll create a personalized travel plan.")
+    st.markdown("Plan your dream trip! Enter your travel preferences, and we'll create a personalized travel plan. Note: This app is for travel planning only.")
 
     # Initialize session state for chat result and history
     if "chat_result" not in st.session_state:
@@ -112,6 +119,11 @@ def main():
         submit_button = st.form_submit_button(label="Generate Travel Plan")
 
     if submit_button and user_request:
+        # Validate if the request is travel-related
+        if not is_travel_related(user_request):
+            st.error("This is a travel agent, sorry for your inconvenience. Please provide a travel-related request.")
+            return
+
         with st.spinner("Generating your travel plan..."):
             try:
                 # Clear previous result before initiating a new chat
@@ -122,7 +134,7 @@ def main():
                 chat_result = user_proxy.initiate_chat(
                     travel_planner_manager,
                     message=user_request,
-                    clear_history=True, # Ensure a fresh conversation
+                    clear_history=True,
                 )
 
                 # Store result and history in session state
@@ -131,12 +143,11 @@ def main():
 
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
-                st.markdown("Please ensure your `GROQ_API_KEY` is correctly set in Streamlit secrets and try again.")
+                st.markdown("Please ensure your `GROQ_API_KEY` is correctly set in Streamlit secrets or .env file and try again.")
 
     # Display results if available
     if st.session_state.chat_result and st.session_state.history:
         st.subheader("Your Personalized Travel Plan")
-        # Display the content of the last message, which should be the final report
         if st.session_state.history:
             st.markdown(st.session_state.history[-1]["content"])
         else:
