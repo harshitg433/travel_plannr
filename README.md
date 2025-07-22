@@ -94,8 +94,8 @@ Pull requests are welcome! Please open issues for bugs or feature suggestions.
 
 🖼️ Project banner image
 
-![Description](output/Screenshot from 2025-07-22 23-37-33.png)
+![Alt Text](https://github.com/harshitg433/travel_plannr/blob/master/output/Screenshot%20from%202025-07-22%2023-37-33.png)
 
-![Description](output/Screenshot from 2025-07-22 23-37-51.png)
+![Alt Text](https://github.com/harshitg433/travel_plannr/blob/master/output/Screenshot%20from%202025-07-22%2023-37-51.png)
 
 
