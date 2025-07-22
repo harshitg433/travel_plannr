@@ -93,9 +93,9 @@ Pull requests are welcome! Please open issues for bugs or feature suggestions.
 
 🖼️ Project banner image
 
-![AI Travel Planner Banner for accepting query](/home/harshit433/travel_plannr/output/Screenshot from 2025-07-22 23-37-33.png)
+![AI Travel Planner Banner for accepting query](output/Screenshot from 2025-07-22 23-37-33.png)
 
-![AI Travel Planner Banner for rejecting query](/home/harshit433/travel_plannr/output/Screenshot from 2025-07-22 23-37-51.png)
+![AI Travel Planner Banner for rejecting query](output/Screenshot from 2025-07-22 23-37-51.png)
 
 
 
