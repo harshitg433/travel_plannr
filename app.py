@@ -19,7 +19,7 @@ except (st.errors.StreamlitSecretNotFoundError, KeyError):
 llm_config = {
     "config_list": [
         {
-            "model": "llama3-8b-8192",
+            "model": "openai/gpt-oss-20b",
             "api_key": groq_api_key,
             "base_url": "https://api.groq.com/openai/v1",
             "price": [0.2, 0.2],
